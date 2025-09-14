@@ -20,7 +20,7 @@ We turn hard-to-read public data into actionable trading context.
 ▶️ Demo Video (YouTube)
 
 Watch the demo on YouTube
-Replace the URL above with your actual demo link.
+https://youtu.be/-1qnoXaTELU
 
 ⸻
 
@@ -65,7 +65,7 @@ Issues and PRs are welcome! Please feel free to propose improvements or report b
 ⸻
 
 📬 Contact
-	•	Author: @your_handle
+	•	Author: @yonkuro496
 	•	Bug reports: GitHub Issues
 
 If you find this useful, please ⭐️ the repo—it helps a lot!
