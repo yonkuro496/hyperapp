@@ -1,0 +1,72 @@
+[
+  {
+    "trader": "AlphaWhale",
+    "side": "B",
+    "notional": 2500000,
+    "px": 45000,
+    "ts": 1703123456789
+  },
+  {
+    "trader": "CryptoShark",
+    "side": "S",
+    "notional": 1800000,
+    "px": 44950,
+    "ts": 1703123456790
+  },
+  {
+    "trader": "DiamondHands",
+    "side": "B",
+    "notional": 950000,
+    "px": 45100,
+    "ts": 1703123456791
+  },
+  {
+    "trader": "FlashTrader",
+    "side": "S",
+    "notional": 750000,
+    "px": 44900,
+    "ts": 1703123456792
+  },
+  {
+    "trader": "MegaBull",
+    "side": "B",
+    "notional": 3200000,
+    "px": 45200,
+    "ts": 1703123456793
+  },
+  {
+    "trader": "BearKing",
+    "side": "S",
+    "notional": 1200000,
+    "px": 44800,
+    "ts": 1703123456794
+  },
+  {
+    "trader": "QuickSilver",
+    "side": "B",
+    "notional": 680000,
+    "px": 45050,
+    "ts": 1703123456795
+  },
+  {
+    "trader": "IronFist",
+    "side": "S",
+    "notional": 1500000,
+    "px": 44850,
+    "ts": 1703123456796
+  },
+  {
+    "trader": "GoldenEagle",
+    "side": "B",
+    "notional": 2100000,
+    "px": 45150,
+    "ts": 1703123456797
+  },
+  {
+    "trader": "SteelBear",
+    "side": "S",
+    "notional": 890000,
+    "px": 44750,
+    "ts": 1703123456798
+  }
+]

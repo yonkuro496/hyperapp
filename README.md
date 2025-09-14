@@ -1,36 +1,149 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TraderScope Hyperliquid v0
 
-## Getting Started
+Real-time cryptocurrency trading analytics dashboard for Hyperliquid exchange data.
 
-First, run the development server:
+## Features
 
-```bash
+- **Real-time WebSocket Integration**: Live BTC trade data from Hyperliquid
+- **Multi-Chart Visualization**: Donut charts, bar charts, and time series
+- **Trade Size Analysis**: Categorizes trades into Small/Medium/Large/Super buckets
+- **Buy Pressure Index**: Real-time sentiment indicator
+- **Auto-Reconnection**: Robust WebSocket handling with exponential backoff
+- **Featured Traders**: Mock high-volume trader activity display
+
+## Quick Start
+
+\`\`\`bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Run tests
+npm run test
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Build for production
+npm run build
+\`\`\`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000/dashboard](http://localhost:3000/dashboard) to view the dashboard.
 
-## Learn More
+## Architecture
 
-To learn more about Next.js, take a look at the following resources:
+### Data Flow
+1. WebSocket connects to `wss://api.hyperliquid.xyz/ws`
+2. Subscribes to BTC trade data
+3. Aggregates trades in 1-minute rolling windows
+4. Categorizes by notional value into size buckets
+5. Updates charts in real-time
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Trade Size Buckets
+- **Small**: < $10,000
+- **Medium**: $10,000 - $100,000  
+- **Large**: $100,000 - $1,000,000
+- **Super**: >= $1,000,000
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Key Metrics
+- **Buy Pressure Index (BPI)**: `buyNotional / (buyNotional + sellNotional) * 100`
+- **Time Series**: 5-second sub-windows within 1-minute rolling window
+- **Volume Distribution**: Real-time buy/sell ratio by trade size
 
-## Deploy on Vercel
+## Technical Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS v4
+- **Charts**: Recharts
+- **Testing**: Vitest
+- **WebSocket**: Native browser WebSocket API
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Configuration
+
+### WebSocket Settings
+Edit `config/buckets.ts` to modify:
+- Reconnection delays and limits
+- Bucket thresholds
+- Subscription parameters
+
+### Environment
+No environment variables required for MVP. All data comes from public WebSocket feeds.
+
+## Deployment
+
+### Vercel (Recommended)
+\`\`\`bash
+# Connect to Vercel
+npx vercel
+
+# Deploy
+npx vercel --prod
+\`\`\`
+
+### Other Platforms
+Standard Next.js deployment. Ensure WebSocket connections are supported.
+
+## Known Limitations (MVP)
+
+- **Client-side only**: No server-side data persistence
+- **BTC only**: Single asset support (extensible)
+- **1-minute window**: Limited historical data retention
+- **Mock traders**: Featured traders table uses dummy data
+- **No authentication**: Public dashboard only
+
+## Development
+
+### File Structure
+\`\`\`
+app/                 # Next.js app router pages
+components/          # Reusable UI components
+  charts/           # Chart components (Pie, Bar, Stacked)
+config/             # Configuration constants
+data/               # Static data files
+lib/                # Core business logic
+  agg.ts           # Trade aggregation functions
+  ws.ts            # WebSocket client
+types/              # TypeScript definitions
+tests/              # Unit tests
+\`\`\`
+
+### Testing
+\`\`\`bash
+# Run all tests
+npm run test
+
+# Run tests in watch mode
+npm run test -- --watch
+
+# Run specific test file
+npm run test tests/agg.test.ts
+\`\`\`
+
+### Extending
+
+**Add New Assets**:
+1. Update `WS_CONFIG.SUBSCRIPTION.coin` in `config/buckets.ts`
+2. Add asset selector UI component
+3. Modify aggregation logic for multi-asset support
+
+**Add Persistence**:
+1. Integrate database (SQLite/Neon recommended)
+2. Create API routes for historical data
+3. Update aggregation to use server-side data
+
+**Add Authentication**:
+1. Implement user accounts
+2. Add personalized watchlists
+3. Create private dashboard features
+
+## Support
+
+For issues or questions:
+1. Check existing GitHub issues
+2. Review WebSocket connection in browser dev tools
+3. Verify Hyperliquid API status
+4. Test with `npm run test` to ensure core logic works
+
+## License
+
+MIT License - see LICENSE file for details.
